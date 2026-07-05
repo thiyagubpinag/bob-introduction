@@ -226,6 +226,111 @@ Custom modes can be created by your team to match your specific workflow needs.
 
 ---
 
+## Mainframe-Specific Modes: Z Architect & Z Code
+
+For mainframe developers, Bob ships with two dedicated modes purpose-built for z/OS work. These are the modes you will use most often.
+
+```
+┌─────────────────────────────────────────────────────────┐
+│            MAINFRAME-SPECIFIC MODES                      │
+├─────────────────────────────────────────────────────────┤
+│                                                         │
+│  ┌──────────────────┐     ┌──────────────────┐         │
+│  │   Z ARCHITECT    │     │     Z CODE       │         │
+│  │      Mode        │     │      Mode        │         │
+│  ├──────────────────┤     ├──────────────────┤         │
+│  │ Read, Analyse,   │     │ Write, Fix,      │         │
+│  │ Understand       │     │ Improve, Build   │         │
+│  └──────────────────┘     └──────────────────┘         │
+│                                                         │
+└─────────────────────────────────────────────────────────┘
+```
+
+### Z Architect Mode — The Application Analyst
+
+**Purpose:** Understand and analyse entire mainframe applications — across hundreds of programs — and deliver architecture-level insights.
+
+**When to use:** When you need to *understand* the system before touching it.
+
+| Can Do | Example |
+|--------|---------|
+| ✅ Read entire applications | Scan 450 COBOL programs at once |
+| ✅ Build dependency maps | Which programs call CARDVAL? |
+| ✅ Generate architecture diagrams | Current vs proposed flow |
+| ✅ Produce business-aware documentation | Using your data dictionary for context |
+| ✅ Perform impact analysis | What breaks if I change copybook CARDDATA? |
+
+```
+YOU:  "Give me a complete overview of the payment system"
+
+BOB:  [Scans all programs, copybooks, DB2 tables, JCL]
+
+      "The payment system has 3 main subsystems:
+       1. PAYMENT INTAKE  — 12 programs, entry via PAYMNT01
+       2. PAYMENT PROCESSING — 28 programs, core: PAYPRC01
+       3. SETTLEMENT — 15 programs, nightly batch: SETLBCH1
+
+       Key dependency: COPYBOOK CARDDATA used by 87 programs."
+
+Time: 3 minutes  (vs 6 months learning it manually)
+```
+
+**Mainframe Analogy:** Z Architect Mode is like a **cross-reference listing + XREF report** — but for your entire application, not just one program.
+
+---
+
+### Z Code Mode — The Active Developer
+
+**Purpose:** Write, fix, modernise, and improve mainframe code directly inside your codebase.
+
+**When to use:** When you need to *change* something — fix a bug, add a feature, modernise a program.
+
+| Can Do | Example |
+|--------|---------|
+| ✅ Implement changes across multiple programs | Add a new copybook field to 35 programs |
+| ✅ Run ZCodeScan | Find and fix critical CICS/DB2 issues automatically |
+| ✅ Generate data dictionaries | Scan variables, create `.bob/DD.json` |
+| ✅ Apply enterprise standards | Add RESP, RESP2, END-CALL automatically |
+| ✅ Debug and fix ABENDs | Identify root cause and apply the fix |
+
+```
+YOU:  "Add field ACCT-TIER to ACCTDATA copybook and update
+       all 35 programs that use it"
+
+BOB:  [Plans → Updates copybook → Updates all 35 programs
+       → Verifies consistency]
+
+      "Done. Updated ACCTDATA.cpy and 35 programs.
+       No programs were missed."
+
+Time: 8 minutes  (vs 15 hours manually)
+```
+
+**Mainframe Analogy:** Z Code Mode is like a **super-powered ISPF editor** — it reads, edits, and verifies changes across your entire PDS library, not just one member at a time.
+
+---
+
+### Z Architect vs Z Code — When to Use Which
+
+```
+Z ARCHITECT MODE                    Z CODE MODE
+────────────────────────────        ────────────────────────────
+✓ "Explain this application"        ✓ "Fix this ABEND"
+✓ "What programs call CARDVAL?"     ✓ "Add error handling here"
+✓ "Show me the full call chain"     ✓ "Modernise this CICS call"
+✓ "What is the impact if I         ✓ "Add the new field to all
+  change this copybook?"              programs"
+✓ "Document this program"           ✓ "Run ZCodeScan and fix issues"
+✓ "Give me an architecture          ✓ "Optimise this batch job"
+  overview"
+
+MODE: Read, Analyse, Understand     MODE: Write, Fix, Improve, Build
+```
+
+> **Tip for beginners:** Start with **Z Architect** to understand the code, then switch to **Z Code** to change it. This is the safest and most effective workflow.
+
+---
+
 ## Key Takeaways
 
 | Mode | When to Use | What it Does |
@@ -233,6 +338,8 @@ Custom modes can be created by your team to match your specific workflow needs.
 | **Plan** | Complex tasks needing design | Thinks, plans, designs — limited actions |
 | **Agent** | Implementation tasks | Full access — reads, writes, executes |
 | **Ask** | Learning, understanding | Read-only — explains, answers questions |
+| **Z Architect** | Understand mainframe applications | Reads entire apps, maps dependencies, explains architecture |
+| **Z Code** | Develop mainframe code | Writes, fixes, modernises, scans quality |
 | **Switching** | Natural — ask or automatic | Bob adapts to what you need |
 | **Custom** | Team-specific workflows | Can be created for specialized tasks |
 
